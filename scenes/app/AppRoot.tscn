@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://cf2xh7avroa16"]
 
+[ext_resource type="Script" uid="uid://d3ibrb4g0rhou" path="res://scenes/app/AppRoot.gd" id="1_qqw5g"]
+
 [node name="AppRoot" type="Node" unique_id=2032859772]
+script = ExtResource("1_qqw5g")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=111626162]
 
