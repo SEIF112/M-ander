@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bspbt0e7nmxqs"]
+
+[node name="ParameterInput" type="Control" unique_id=533142880]
+layout_mode = 3
+anchors_preset = 0

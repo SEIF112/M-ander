@@ -1,2 +1,5 @@
+Button
 Control
+VBoxContainer
+HSlider
 AudioStreamPlayer

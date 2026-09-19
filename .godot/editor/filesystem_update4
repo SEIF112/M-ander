@@ -1,0 +1,4 @@
+res://scenes/app/AppRoot.gd
+res://scenes/menus/main_menu/main_menu.tscn
+res://scenes/menus/main_menu/main_menu.gd
+res://scenes/menus/options/options_menu.tscn

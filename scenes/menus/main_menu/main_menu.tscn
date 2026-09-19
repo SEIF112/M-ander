@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bkdukae3s4lo0"]
+
+[ext_resource type="Script" uid="uid://0f20b6s72vbw" path="res://scenes/menus/main_menu/main_menu.gd" id="1_kx65a"]
+
+[node name="MainMenu" type="Control" unique_id=2041554142]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kx65a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=267511147]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NewSimulation" type="Button" parent="VBoxContainer" unique_id=713271378]
+layout_mode = 2
+text = "Neue Simulation"
+
+[node name="Options" type="Button" parent="VBoxContainer" unique_id=1097443379]
+layout_mode = 2
+text = "Optionen"
+
+[connection signal="pressed" from="VBoxContainer/NewSimulation" to="." method="_on_new_simulation_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]

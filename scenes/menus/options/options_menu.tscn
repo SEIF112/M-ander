@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://khh52e24wfpy"]
+
+[node name="OptionsMenu" type="Control" unique_id=1990328605]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Button" type="Button" parent="." unique_id=583902079]
+layout_mode = 0
+offset_right = 1355.0
+offset_bottom = 626.0
