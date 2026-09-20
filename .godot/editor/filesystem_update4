@@ -1,3 +1,3 @@
-res://scenes/menus/parameter_input/parameter_input.tscn
-res://scenes/menus/parameter_input/river_speed.gd
 res://scenes/menus/parameter_input/parameter_input.gd
+res://scenes/menus/parameter_input/parameter_input.tscn
+res://scenes/components/single_output.tscn

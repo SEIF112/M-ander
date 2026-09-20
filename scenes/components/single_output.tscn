@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cbkgvnonj2pql"]
+
+[ext_resource type="Script" uid="uid://dgv1igbf6l4r4" path="res://scenes/components/single_output.gd" id="1_30dm2"]
+
+[node name="SingleValueInput" type="VBoxContainer" unique_id=343772633]
+script = ExtResource("1_30dm2")
+
+[node name="InputField" type="HBoxContainer" parent="." unique_id=769453854]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InputField" unique_id=1509110007]
+layout_mode = 2
+
+[node name="ValueBox" type="SpinBox" parent="InputField" unique_id=1941311212]
+layout_mode = 2
+
+[node name="Slider" type="HSlider" parent="." unique_id=765386779]
+layout_mode = 2

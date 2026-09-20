@@ -1,12 +1,16 @@
 extends VBoxContainer
 
-var min_value: float = 0.0
-var max_value: float = 10.0
+@export var min_value: float
+@export var max_value: float
 
-@export var current_value: float = 5.0
+@export var current_value: float
 
-@onready var slider := $RiverSpeedSlider
-@onready var spinbox := $RiverSpeed/RiverSpeedValue
+@export var label_text: String
+
+@onready var slider := $Slider
+@onready var spinbox := $InputField/ValueBox
+@onready var label := $InputField/Label
+
 func _ready() -> void:
 	slider.min_value = min_value
 	slider.max_value = max_value
@@ -16,8 +20,11 @@ func _ready() -> void:
 	spinbox.max_value = max_value
 	spinbox.value = current_value
 	
-	slider.connect("value_changed", _on_slider_changed)
-	spinbox.connect("value_changed", _on_spinbox_changed)
+	label.text = label_text
+	
+	slider.value_changed.connect(_on_slider_changed)
+	spinbox.value_changed.connect(_on_spinbox_changed)
+
 
 
 func _on_slider_changed(value):

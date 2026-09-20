@@ -1,31 +1,48 @@
 [gd_scene format=3 uid="uid://bspbt0e7nmxqs"]
 
 [ext_resource type="Script" uid="uid://duxbf2oxnpc02" path="res://scenes/menus/parameter_input/parameter_input.gd" id="1_0jlv1"]
-[ext_resource type="Script" uid="uid://dgv1igbf6l4r4" path="res://scenes/menus/parameter_input/river_speed.gd" id="2_q4ac7"]
+[ext_resource type="PackedScene" uid="uid://cbkgvnonj2pql" path="res://scenes/components/single_output.tscn" id="2_q4ac7"]
 
-[node name="ParameterInput" type="Control" unique_id=533142880]
+[node name="ParameterInput" type="Control" unique_id=1241447954]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_0jlv1")
 
-[node name="Inputs" type="VBoxContainer" parent="." unique_id=691743626]
+[node name="UserInputs" type="VBoxContainer" parent="." unique_id=354236554]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="RiverSpeed" type="VBoxContainer" parent="Inputs" unique_id=1406662550]
+[node name="RiverSpeed" parent="UserInputs" unique_id=343772633 instance=ExtResource("2_q4ac7")]
 layout_mode = 2
-script = ExtResource("2_q4ac7")
+max_value = 10.0
+current_value = 5.0
+label_text = "Fließgeschwindichkeit"
 
-[node name="RiverSpeed" type="HBoxContainer" parent="Inputs/RiverSpeed" unique_id=1299107846]
+[node name="WaterAmountPerTile" parent="UserInputs" unique_id=1704606151 instance=ExtResource("2_q4ac7")]
 layout_mode = 2
+max_value = 100.0
+current_value = 50.0
+label_text = "Wassermenge Fluss"
 
-[node name="Label" type="Label" parent="Inputs/RiverSpeed/RiverSpeed" unique_id=1435759333]
+[node name="GroundwaterTable" parent="UserInputs" unique_id=1453202262 instance=ExtResource("2_q4ac7")]
 layout_mode = 2
-text = "Fließgeschwindigkeit"
+min_value = -100.0
+current_value = -20.0
+label_text = "Grundwasserspiegel"
 
-[node name="RiverSpeedValue" type="SpinBox" parent="Inputs/RiverSpeed/RiverSpeed" unique_id=1856340501]
+[node name="SedimentVolume" parent="UserInputs" unique_id=467178587 instance=ExtResource("2_q4ac7")]
 layout_mode = 2
+max_value = 100.0
+current_value = 10.0
+label_text = "mitgeführte Sedimentmenge"
 
-[node name="RiverSpeedSlider" type="HSlider" parent="Inputs/RiverSpeed" unique_id=1552615523]
-layout_mode = 2
+[node name="StartSimulation" type="Button" parent="." unique_id=1457099122]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 1.0
+offset_right = 409.0
+offset_bottom = 32.0
+text = "Start Simulation"
+
+[connection signal="pressed" from="StartSimulation" to="." method="_on_start_simulation_pressed"]
