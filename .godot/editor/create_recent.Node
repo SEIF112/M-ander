@@ -1,5 +1,9 @@
-Button
-Control
+SpinBox
+Label
+Container
 VBoxContainer
 HSlider
+HBoxContainer
+Button
+Control
 AudioStreamPlayer
