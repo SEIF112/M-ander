@@ -1,3 +1,5 @@
 res://scenes/components/range_value_output.tscn
 res://scenes/components/range_value_output.gd
 res://scenes/menus/parameter_input/parameter_input.tscn
+res://scenes/menus/parameter_input/parameter_input.gd
+res://scripts/settings/simulation_settings.gd

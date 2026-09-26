@@ -50,10 +50,18 @@ label_text = "Temperatur"
 
 [node name="SoilHardness" parent="UserInputs" unique_id=1627232264 instance=ExtResource("3_q4ac7")]
 layout_mode = 2
+min_value = 1.0
+max_value = 100.0
+min_output = 12.0
+max_output = 25.0
 label_text = "Bodendichte"
 
-[node name="Vegitation" parent="UserInputs" unique_id=1679433238 instance=ExtResource("3_q4ac7")]
+[node name="Vegetation" parent="UserInputs" unique_id=1679433238 instance=ExtResource("3_q4ac7")]
 layout_mode = 2
+min_value = 1.0
+max_value = 15.0
+min_output = 3.0
+max_output = 8.0
 label_text = "Bepflanzung"
 
 [node name="StartSimulation" type="Button" parent="." unique_id=1457099122]
