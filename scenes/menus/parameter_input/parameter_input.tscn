@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://duxbf2oxnpc02" path="res://scenes/menus/parameter_input/parameter_input.gd" id="1_0jlv1"]
 [ext_resource type="PackedScene" uid="uid://cbkgvnonj2pql" path="res://scenes/components/single_output.tscn" id="2_q4ac7"]
+[ext_resource type="PackedScene" uid="uid://cgdeiil87jbws" path="res://scenes/components/range_value_output.tscn" id="3_q4ac7"]
 
 [node name="ParameterInput" type="Control" unique_id=1241447954]
 layout_mode = 3
@@ -10,8 +11,10 @@ script = ExtResource("1_0jlv1")
 
 [node name="UserInputs" type="VBoxContainer" parent="." unique_id=354236554]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 84.0
+offset_top = 35.0
+offset_right = 176.0
+offset_bottom = 263.0
 
 [node name="RiverSpeed" parent="UserInputs" unique_id=343772633 instance=ExtResource("2_q4ac7")]
 layout_mode = 2
@@ -36,6 +39,22 @@ layout_mode = 2
 max_value = 100.0
 current_value = 10.0
 label_text = "mitgeführte Sedimentmenge"
+
+[node name="TemperatureRange" parent="UserInputs" unique_id=624101737 instance=ExtResource("3_q4ac7")]
+layout_mode = 2
+min_value = -52.0
+max_value = 80.0
+min_output = -2.0
+max_output = 20.0
+label_text = "Temperatur"
+
+[node name="SoilHardness" parent="UserInputs" unique_id=1627232264 instance=ExtResource("3_q4ac7")]
+layout_mode = 2
+label_text = "Bodendichte"
+
+[node name="Vegitation" parent="UserInputs" unique_id=1679433238 instance=ExtResource("3_q4ac7")]
+layout_mode = 2
+label_text = "Bepflanzung"
 
 [node name="StartSimulation" type="Button" parent="." unique_id=1457099122]
 layout_mode = 0

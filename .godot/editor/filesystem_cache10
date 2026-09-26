@@ -1,5 +1,5 @@
 78098b89c88a74ebe8c20117b8754620
-::res://::1790433978
+::res://::1790454022
 icon.svg::CompressedTexture2D::3678722075548417473::1789311137::1789311145::1::::<><><>0<>0<>96065e27af0989612b529bfda4d501b6<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 ::res://assets/::1789311346
 ::res://resources/::1789311532
@@ -9,7 +9,9 @@ icon.svg::CompressedTexture2D::3678722075548417473::1789311137::1789311145::1:::
 ::res://scenes/app/::1789823928
 AppRoot.gd::GDScript::9141155868095213732::1789823928::0::1::::<>Node<><>0<>0<><>::
 AppRoot.tscn::PackedScene::5180934458051558323::1789492935::0::1::::<><><>0<>0<><>::uid://d3ibrb4g0rhou::::res://scenes/app/AppRoot.gd
-::res://scenes/components/::1789935614
+::res://scenes/components/::1790440779
+range_value_output.gd::GDScript::2532535010908532307::1790438930::0::1::::<>VBoxContainer<><>0<>0<><>::
+range_value_output.tscn::PackedScene::5200425155521017898::1790440690::0::1::::<><><>0<>0<><>::uid://bcc1qm0wmxh3h::::res://scenes/components/range_value_output.gd<>uid://du4ny3kgf3kb4::::res://scenes/components/control.gd<>uid://kl8lbx6mm70h::::res://addons/RangeSlider/v_range_slider.gd
 single_output.gd::GDScript::7625340290859895291::1789933900::0::1::::<>VBoxContainer<><>0<>0<><>::
 single_output.tscn::PackedScene::4864076497228014191::1789935614::0::1::::<><><>0<>0<><>::uid://dgv1igbf6l4r4::::res://scenes/components/single_output.gd
 ::res://scenes/menus/::1789823673
@@ -19,9 +21,9 @@ main_menu.gd::GDScript::1766727084647398372::1789824320::0::1::::<>Control<><>0<
 main_menu.tscn::PackedScene::3095734458606599081::1789823928::0::1::::<><><>0<>0<><>::uid://0f20b6s72vbw::::res://scenes/menus/main_menu/main_menu.gd
 ::res://scenes/menus/options/::1789824164
 options_menu.tscn::PackedScene::716819099001307146::1789824164::0::1::::<><><>0<>0<><>::
-::res://scenes/menus/parameter_input/::1789935945
+::res://scenes/menus/parameter_input/::1790439007
 parameter_input.gd::GDScript::8610590698966312221::1789935945::0::1::::<>Control<><>0<>0<><>::
-parameter_input.tscn::PackedScene::3680881503300316094::1789935945::0::1::::<><><>0<>0<><>::uid://duxbf2oxnpc02::::res://scenes/menus/parameter_input/parameter_input.gd<>uid://cbkgvnonj2pql::::res://scenes/components/single_output.tscn
+parameter_input.tscn::PackedScene::3680881503300316094::1790439007::0::1::::<><><>0<>0<><>::uid://duxbf2oxnpc02::::res://scenes/menus/parameter_input/parameter_input.gd<>uid://cbkgvnonj2pql::::res://scenes/components/single_output.tscn<>uid://cgdeiil87jbws::::res://scenes/components/range_value_output.tscn
 ::res://scenes/simulation/::1789311486
 ::res://scenes/simulation/main/::1789311473
 ::res://scenes/simulation/map/::1789311480
@@ -30,5 +32,6 @@ parameter_input.tscn::PackedScene::3680881503300316094::1789935945::0::1::::<><>
 ::res://scripts/data/::1789311498
 ::res://scripts/manager/::1789492215
 screen_manager.gd::GDScript::2214138860159641341::1789492215::0::1::::<>Node<><>0<>0<><>::
-::res://scripts/settings/::1789311512
+::res://scripts/settings/::1790436148
+simulation_settings.gd::GDScript::6266337505297497384::1790436148::0::1::::SimulationSettings<>Resource<><>0<>0<><>::
 ::res://tests/::1789311341
