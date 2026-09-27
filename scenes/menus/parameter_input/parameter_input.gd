@@ -39,4 +39,5 @@ func _on_start_simulation_pressed() -> void:
 	simulation_settings.max_vegetation = values["max_vegetation"]
 	simulation_settings.min_vegetation = values["min_vegetation"]
 	
-	
+	SimulationManager.simulation_settings = simulation_settings
+	ScreenManager.switch_to("res://scenes/simulation/main/simulation_main.tscn")
