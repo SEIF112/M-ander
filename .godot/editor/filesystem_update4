@@ -1,2 +1,2 @@
-res://scenes/menus/parameter_input/parameter_input.gd
-res://scripts/manager/simulation_manager.gd
+res://scenes/simulation/main/simulation_main.tscn
+res://scripts/data/map_data.gd
