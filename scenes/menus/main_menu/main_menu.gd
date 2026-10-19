@@ -5,7 +5,16 @@ var _optionMenuScene: String = "res://scenes/menus/options/options_menu.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	var map := MapData.new()
+	map.generate_empty(5, 5)
+	print("Anzahl Tiles: ", map.tiles.size())
+	
+	print("0,1,30: ", HexMath.hex_to_pixel(0,1,30))
+	
+	var neighbors := map.get_neighbors(2, 2)
+	print("Nachbarn von (0,2): ", neighbors.size())
+	for n in neighbors:
+		print("  -> (", n.axial_q, ", ", n.axial_r, ")")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

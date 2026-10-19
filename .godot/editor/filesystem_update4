@@ -1,2 +1,4 @@
+res://scenes/menus/main_menu/main_menu.gd
 res://scenes/simulation/main/simulation_main.tscn
+res://scripts/helper/hex_to_pixel_coordinate.gd
 res://scripts/data/map_data.gd
