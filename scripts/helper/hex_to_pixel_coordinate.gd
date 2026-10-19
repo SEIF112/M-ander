@@ -18,6 +18,12 @@ static func hex_corners(center: Vector2, size: float) -> PackedVector2Array:
 			size * cos(deg_to_rad(angle)),
 			size * sin(deg_to_rad(angle))
 		)
-		
 		result.append(vertex)
+	
 	return result
+
+static func draw_corner_helper(vertexes: PackedVector2Array) -> PackedVector2Array:
+	var drawing_list : PackedVector2Array = vertexes
+	var new_vertex : Vector2 = vertexes.get(0)
+	drawing_list.append(new_vertex)
+	return drawing_list

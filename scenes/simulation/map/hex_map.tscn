@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://04k7hciuqnvf"]
+
+[ext_resource type="Script" uid="uid://c6lp76mvbok4y" path="res://scenes/simulation/map/hex_map.gd" id="1_035ny"]
+
+[node name="HexMap" type="Node2D" unique_id=1531668115]
+script = ExtResource("1_035ny")
