@@ -40,4 +40,4 @@ func _on_start_simulation_pressed() -> void:
 	simulation_settings.min_vegetation = values["min_vegetation"]
 	
 	SimulationManager.simulation_settings = simulation_settings
-	ScreenManager.switch_to(SceneRegistry.SceneKey.HEX_MAP)
+	ScreenManager.switch_to(SceneRegistry.SceneKey.SIMULATION_MAIN)

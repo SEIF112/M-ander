@@ -24,4 +24,4 @@ func _draw() -> void:
 		var center = HexMath.hex_to_pixel(tile.axial_q, tile.axial_r, hex_size)
 		var vertexes = HexMath.hex_corners(center,hex_size)
 		draw_colored_polygon(vertexes, Color.AQUA)
-		draw_polyline(vertexes, Color.BEIGE, hex_size)
+		draw_polyline(vertexes, Color.BEIGE, 1.0)

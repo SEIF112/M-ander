@@ -20,7 +20,7 @@ var scenes := {
 
 func get_scene(key: SceneKey) -> PackedScene:
 	var path : String= scenes.get(key)
-	if path == null:
+	if !scenes.has(key):
 		push_error("SceneRegistry: Unknown scene key: %s" % key)
 		return null
 	return load(path)
