@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 ScreenManager="*uid://6sssqlggkcf2"
 SimulationManager="*uid://tipa2283ss6w"
+SceneRegistry="*uid://bv12wpdp0e6gv"
 
 [display]
 

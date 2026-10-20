@@ -1,8 +1,5 @@
 extends Control
 
-var _parameterMenuScene: String = "res://scenes/menus/parameter_input/parameter_input.tscn"
-var _optionMenuScene: String = "res://scenes/menus/options/options_menu.tscn"
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -13,8 +10,8 @@ func _process(delta: float) -> void:
 
 
 func _on_new_simulation_pressed() -> void:
-	ScreenManager.switch_to(_parameterMenuScene)
+	ScreenManager.switch_to(SceneRegistry.SceneKey.PARAMETER_MENU)
 
 
 func _on_options_pressed() -> void:
-	ScreenManager.switch_to(_optionMenuScene)
+	ScreenManager.switch_to(SceneRegistry.SceneKey.OPTIONS_MENU)
