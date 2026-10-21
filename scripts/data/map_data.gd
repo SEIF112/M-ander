@@ -38,6 +38,6 @@ func generate_empty(local_width: int, local_height:int) -> void:
 	for q in range(local_width):
 		for r in range(local_height):
 			var current_tile: Tile = Tile.new()
-			current_tile.axial_q = q
+			current_tile.axial_q = q-(r/2)
 			current_tile.axial_r = r
 			tiles[Vector2i(q,r)] = current_tile

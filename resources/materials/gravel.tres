@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MaterialData" format=3 uid="uid://durbnkhl88ai2"]
+
+[ext_resource type="Script" uid="uid://crcmggjij8kfv" path="res://scripts/data/material_data.gd" id="1_nv1ql"]
+
+[resource]
+script = ExtResource("1_nv1ql")
+material_type = 1
+display_name = "Kies"
+hardness_min = 50.0
+hardness_max = 70.0
+color = Color(0.47137535, 0.4713753, 0.4713753, 1)
+metadata/_custom_type_script = "uid://crcmggjij8kfv"

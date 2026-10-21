@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MaterialData" format=3 uid="uid://bl360a7ty7wc7"]
+
+[ext_resource type="Script" uid="uid://crcmggjij8kfv" path="res://scripts/data/material_data.gd" id="1_y80ns"]
+
+[resource]
+script = ExtResource("1_y80ns")
+display_name = "Sand"
+hardness_max = 20.0
+color = Color(0.98880583, 0.9888055, 9.241105e-06, 1)
+metadata/_custom_type_script = "uid://crcmggjij8kfv"

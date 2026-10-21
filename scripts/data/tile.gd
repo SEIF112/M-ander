@@ -23,7 +23,7 @@ extends Resource
 ## Wird von MapChanger pro Schritt aus material.base_resistance,
 ## vegetation_density und der aktuellen globalen Temperatur berechnet
 ## (siehe MapChanger.calculate_effective_resistance).
-@export var hardness: float = 0.0
+@export var base_hardness: float = 0.0
 
 ## Nur bedeutungsvoll, wenn water_state == NONE (also Boden).
 ## Rein saisonal berechnet (siehe MapChanger.calculate_vegetation_density).

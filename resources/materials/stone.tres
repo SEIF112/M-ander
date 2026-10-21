@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MaterialData" format=3 uid="uid://ci0pnjl8bib5y"]
+
+[ext_resource type="Script" uid="uid://crcmggjij8kfv" path="res://scripts/data/material_data.gd" id="1_f0mox"]
+
+[resource]
+script = ExtResource("1_f0mox")
+material_type = 3
+display_name = "Stein"
+hardness_min = 80.0
+hardness_max = 100.0
+color = Color(0.19315353, 0.19315353, 0.19315353, 1)
+metadata/_custom_type_script = "uid://crcmggjij8kfv"

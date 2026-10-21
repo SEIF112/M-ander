@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MaterialData" format=3 uid="uid://c6uebm7vr5kjn"]
+
+[ext_resource type="Script" uid="uid://crcmggjij8kfv" path="res://scripts/data/material_data.gd" id="1_ru7rf"]
+
+[resource]
+script = ExtResource("1_ru7rf")
+material_type = 2
+display_name = "Erde"
+hardness_min = 20.0
+hardness_max = 40.0
+color = Color(0.56594956, 0.38090286, 2.8878452e-07, 1)
+metadata/_custom_type_script = "uid://crcmggjij8kfv"
