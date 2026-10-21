@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://b2igox4bgelwl"]
+
+[sub_resource type="GDScript" id="GDScript_y3o0k"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func check(condition: bool, name: String) -> void:
+	print((\"PASS: \" if condition else \"FAIL: \") + name)
+	
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 42
+	var rng2 := RandomNumberGenerator.new()
+	rng2.seed = 42
+	
+	var min_output : Array[float]
+	var test1: float
+	var max_output: Array[float]
+	var material1 : MaterialData = ResourceLoader.load(\"res://resources/materials/earth.tres\")
+	
+	for n in 10:
+		print(\"Round \",n)
+		test1 = MapGenerator.roll_hardness(material1,0.0,20.0,rng )
+		print(test1)
+		test1 = MapGenerator.roll_hardness(material1,0.0,20.0,rng2 )
+		print(test1)
+		
+	for n in 1000:
+		test1 = MapGenerator.roll_hardness(material1,0.0,20.0,rng )
+		min_output.append(test1)
+		test1 = MapGenerator.roll_hardness(material1,80.0,100.0,rng)
+		max_output.append(test1)
+	
+	print(\"Min output was between: \", min_output.min(), \"and\", min_output.max())
+	print(\"Max output was between: \", max_output.min(), \"and\", max_output.max())
+	"
+
+[node name="MapGenerationTest" type="Node2D" unique_id=1701834935]
+script = SubResource("GDScript_y3o0k")

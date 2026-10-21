@@ -8,3 +8,7 @@ res://scripts/settings/map_generation_settings.gd
 res://scripts/data/tile.gd
 res://scripts/simulation/map_generator.gd
 res://scenes/simulation/main/simulation_main.gd
+res://tests/test_runner.tscn
+res://tests/map_generator/test_random_hardness.gd
+res://tests/test_runner.gd
+res://tests/helper/check.gd
