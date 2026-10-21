@@ -1,5 +1,5 @@
 class_name MapGenerator
-extends Node
+extends RefCounted
 
 static func roll_hardness(material: MaterialData, user_min: float, user_max: float, rng: RandomNumberGenerator) -> float:
 	var tile_range: float
