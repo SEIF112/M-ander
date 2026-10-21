@@ -9,7 +9,7 @@ enum SceneKey {
 	MAIN_MENU
 }
 
-var scenes := {
+var scenes : Dictionary = {
 	SceneKey.APP_ROOT: "res://scenes/app/AppRoot.tscn",
 	SceneKey.PARAMETER_MENU: "res://scenes/menus/parameter_input/parameter_input.tscn",
 	SceneKey.OPTIONS_MENU: "res://scenes/menus/options/options_menu.tscn",
@@ -19,8 +19,11 @@ var scenes := {
 }
 
 func get_scene(key: SceneKey) -> PackedScene:
-	var path : String= scenes.get(key)
 	if !scenes.has(key):
-		push_error("SceneRegistry: Unknown scene key: %s" % key)
+		var available := SceneKey.keys()
+		var key_name := str(key) 
+		var msg := "SceneRegistry ERROR: Unknown scene key '%s'. Available keys: %s" % [key_name, available]
+		push_error(msg)
 		return null
-	return load(path)
+
+	return load(scenes[key])

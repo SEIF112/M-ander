@@ -12,3 +12,8 @@ res://tests/test_runner.tscn
 res://tests/map_generator/test_random_hardness.gd
 res://tests/test_runner.gd
 res://tests/helper/check.gd
+res://scripts/data/map_data.gd
+res://core/material_regestry.gd
+res://core/scene_registry.gd
+res://tests/registrys/scene_registry_test.gd
+res://tests/registrys/test_material_registry.gd

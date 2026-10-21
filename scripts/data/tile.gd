@@ -20,10 +20,11 @@ extends Resource
 @export var sediment_amount: float = 0.0
 
 ## Nur bedeutungsvoll, wenn water_state == NONE (also Boden).
-## Wird von MapChanger pro Schritt aus material.base_resistance,
+## Wird von MapChanger pro Schritt aus material.hardness,
 ## vegetation_density und der aktuellen globalen Temperatur berechnet
 ## (siehe MapChanger.calculate_effective_resistance).
-@export var base_hardness: float = 0.0
+@export var resistance: float = 0.0
+
 
 ## Nur bedeutungsvoll, wenn water_state == NONE (also Boden).
 ## Rein saisonal berechnet (siehe MapChanger.calculate_vegetation_density).

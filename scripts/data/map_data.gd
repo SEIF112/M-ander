@@ -5,6 +5,7 @@ signal map_changed
 
 @export var width: int = 10
 @export var height: int = 10
+@export var seed: float
 
 var tiles: Dictionary = {}
 
