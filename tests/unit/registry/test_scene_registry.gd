@@ -1,8 +1,8 @@
-extends RefCounted
+extends TestBase
 class_name TestSceneRegistry
 
-func get_test_name() -> String:
-	return "SceneRegistry Tests"
+func _init():
+	_name = "SceneRegistry Tests"
 
 func run():
 	test_valid_key_loads_scene()
@@ -16,7 +16,7 @@ func test_valid_key_loads_scene():
 
 	var scene = registry.get_scene(registry.SceneKey.APP_ROOT)
 
-	Helper.check(scene is PackedScene, "Valid key loads a PackedScene")
+	assert_equal(scene is PackedScene, true, "Valid key loads a PackedScene")
 
 # ---------------------------------------------------------
 # 2) Ungültiger Key → null + Error
@@ -26,4 +26,4 @@ func test_invalid_key_returns_null():
 
 	var scene = registry.get_scene(999)  # absichtlich ungültig
 
-	Helper.check(scene == null, "Invalid key returns null")
+	assert_equal(scene == null, true, "Invalid key returns null")
