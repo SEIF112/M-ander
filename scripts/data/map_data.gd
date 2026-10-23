@@ -32,13 +32,15 @@ func get_tile(q: int, r:int) -> Tile:
 	var tile: Tile = tiles.get(Vector2i(q, r), null)
 	return tile
 
-func generate_empty(local_width: int, local_height:int) -> void:
-	if tiles.is_empty() != true:
-		#TODO Log that map was not empty and god cleared
-		tiles.clear()
-	for q in range(local_width):
-		for r in range(local_height):
-			var current_tile: Tile = Tile.new()
-			current_tile.axial_q = q-(r/2)
-			current_tile.axial_r = r
-			tiles[Vector2i(q,r)] = current_tile
+@warning_ignore("integer_division")
+func generate_empty(local_width: int, local_height: int) -> void:
+	width = local_width
+	height = local_height
+	tiles.clear()
+	for r in range(local_height):
+		var q_offset := r / 2
+		for q in range(-q_offset, local_width - q_offset):
+			var tile := Tile.new()
+			tile.axial_q = q
+			tile.axial_r = r
+			tiles[Vector2i(q, r)] = tile

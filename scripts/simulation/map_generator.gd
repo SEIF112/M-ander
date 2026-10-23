@@ -7,7 +7,7 @@ static func generate(gen_settings: MapGenerationSettings, sim_settings: Simulati
 	map.generate_empty(gen_settings.width, gen_settings.height)
 
 	_generate_base_layer(map, gen_settings.base_material)
-	#_generate_clusters(map, gen_settings)
+	_generate_clusters(map, gen_settings)
 	_roll_all_resistance(map, sim_settings)
 	_carve_river(map, gen_settings)
 	return map
