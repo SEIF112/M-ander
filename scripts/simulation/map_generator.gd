@@ -123,70 +123,81 @@ static func roll_hardness(material: MaterialData, user_min: float, user_max: flo
 static func _carve_river(map_data: MapData, gen_settings: MapGenerationSettings) -> void:
 	var rng := _make_rng(map_data.seed, "river")
 	var phase := rng.randf_range(0.0, TAU)
-	var max_x := sqrt(3.0) * (map_data.width - 0.5)
-	var center_x := max_x / 2.0
 
-	# Letzte Zeile aus den echten Tiles bestimmen, nicht aus map_data.height
+	# Ausdehnung der echten Karte, unabhängig davon, wie generate_empty() die Zeilen versetzt
+	var min_x := INF
+	var max_x := -INF
 	var last_row := 0
-	for key: Vector2i in map_data.tiles:
-		last_row = maxi(last_row, key.y)
-	print("River: rows=", last_row + 1, " map_data.height=", map_data.height)
+	for tile: Tile in map_data.tiles.values():
+		var x := _tile_x(tile)
+		min_x = minf(min_x, x)
+		max_x = maxf(max_x, x)
+		last_row = maxi(last_row, tile.axial_r)
+	var center_x := (min_x + max_x) / 2.0
+	var max_swing := maxf((max_x - min_x) / 2.0 - sqrt(3.0), 0.0)   # mind. 1 Tile Abstand zum Rand
+	var swing := minf(gen_settings.river_amplitude * sqrt(3.0), max_swing)
+	var wavelength := maxf(gen_settings.river_wavelength, 1.0)
 
-	# Startpunkt: das Tile in Zeile 0, dessen x-Position dem Ziel am nächsten liegt
-	var target := _river_target_x(0, center_x, max_x, gen_settings, phase)
-	var current: Tile = null
-	var best_dist := INF
-	for key: Vector2i in map_data.tiles:
-		if key.y != 0:
-			continue
-		var candidate: Tile = map_data.tiles[key]
-		var dist := absf(_tile_x(candidate) - target)
-		if dist < best_dist:
-			best_dist = dist
-			current = candidate
-	current.water_state = Enums.WaterState.RIVER_ACTIVE
+	# 1. Pro Zeile Zielposition bestimmen und das nächstgelegene Tile merken
+	var targets: Array[float] = []
+	for row in range(last_row + 1):
+		targets.append(center_x + swing * sin(TAU * row / wavelength + phase))
 
-	for row in range(1, last_row + 1):
-		target = _river_target_x(row, center_x, max_x, gen_settings, phase)
+	var best_tiles: Array[Tile] = []
+	best_tiles.resize(last_row + 1)
+	var best_dists: Array[float] = []
+	best_dists.resize(last_row + 1)
+	best_dists.fill(INF)
+	for tile: Tile in map_data.tiles.values():
+		var dist := absf(_tile_x(tile) - targets[tile.axial_r])
+		if dist < best_dists[tile.axial_r]:
+			best_dists[tile.axial_r] = dist
+			best_tiles[tile.axial_r] = tile
 
-		# Schritt nach unten: die Nachbarn der nächsten Zeile, der näher am Ziel gewinnt
-		var below: Array[Tile] = []
-		for n in map_data.get_neighbors(current.axial_q, current.axial_r):
-			if n.axial_r == current.axial_r + 1:
-				below.append(n)
-		if below.is_empty():
-			push_warning("River ended early in row %d (q=%d)" % [current.axial_r, current.axial_q])
-			return
-		current = below[0]
-		for n in below:
-			if absf(_tile_x(n) - target) < absf(_tile_x(current) - target):
-				current = n
-		current.water_state = Enums.WaterState.RIVER_ACTIVE
-
-		# Seitwärts laufen, solange das Ziel dadurch näher rückt (macht die Mäanderbögen)
-		for i in map_data.width:
-			var best: Tile = current
-			var best_d := absf(_tile_x(current) - target)
-			for side in [-1, 1]:
-				var neighbor := map_data.get_tile(current.axial_q + side, current.axial_r)
-				if neighbor == null:
-					continue
-				var d := absf(_tile_x(neighbor) - target)
-				if d < best_d - 0.001:
-					best = neighbor
-					best_d = d
-			if best == current:
-				break
-			current = best
-			current.water_state = Enums.WaterState.RIVER_ACTIVE
+	# 2. Aufeinanderfolgende Zeilenpunkte per Hex-Linie verbinden -> lückenlos von oben nach unten
+	for row in range(last_row + 1):
+		var a: Tile = best_tiles[row]
+		a.water_state = Enums.WaterState.RIVER_ACTIVE
+		if row == last_row:
+			break
+		var b: Tile = best_tiles[row + 1]
+		for pos in _hex_line(Vector2i(a.axial_q, a.axial_r), Vector2i(b.axial_q, b.axial_r)):
+			var t := map_data.get_tile(pos.x, pos.y)
+			if t != null:
+				t.water_state = Enums.WaterState.RIVER_ACTIVE
 
 
 static func _tile_x(tile: Tile) -> float:
 	return HexMath.hex_to_pixel(tile.axial_q, tile.axial_r, 1.0).x
 
 
-static func _river_target_x(row: int, center_x: float, max_x: float,
-		gen_settings: MapGenerationSettings, phase: float) -> float:
-	var swing := gen_settings.river_amplitude * sqrt(3.0) \
-			* sin(TAU * row / gen_settings.river_wavelength + phase)
-	return clampf(center_x + swing, 0.0, max_x)
+@warning_ignore("integer_division")
+static func _hex_distance(a: Vector2i, b: Vector2i) -> int:
+	var dq := a.x - b.x
+	var dr := a.y - b.y
+	return (absi(dq) + absi(dr) + absi(dq + dr)) / 2
+
+
+static func _hex_line(a: Vector2i, b: Vector2i) -> Array[Vector2i]:
+	var n := _hex_distance(a, b)
+	var result: Array[Vector2i] = []
+	for i in range(n + 1):
+		var t := float(i) / maxf(n, 1.0)
+		# winziger Versatz, damit das Runden an Kanten eindeutig bleibt
+		result.append(_axial_round(lerpf(a.x, b.x, t) + 1e-6, lerpf(a.y, b.y, t) + 2e-6))
+	return result
+
+
+static func _axial_round(q: float, r: float) -> Vector2i:
+	var s := -q - r
+	var rq := roundf(q)
+	var rr := roundf(r)
+	var rs := roundf(s)
+	var dq := absf(rq - q)
+	var dr := absf(rr - r)
+	var ds := absf(rs - s)
+	if dq > dr and dq > ds:
+		rq = -rr - rs
+	elif dr > ds:
+		rr = -rq - rs
+	return Vector2i(int(rq), int(rr))
