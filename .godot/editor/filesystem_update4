@@ -1,3 +1,4 @@
 res://scripts/simulation/map_generator.gd
 res://tests/runner/runner.tscn
 res://scenes/simulation/map/hex_map.gd
+res://tests/unit/helper/test_cordinate_consistency.gd
