@@ -23,5 +23,5 @@ func _draw() -> void:
 	for tile :Tile in _map_data.tiles.values():
 		var center = HexMath.hex_to_pixel(tile.axial_q, tile.axial_r, hex_size)
 		var vertexes = HexMath.hex_corners(center,hex_size)
-		draw_colored_polygon(vertexes, Color.AQUA)
+		draw_colored_polygon(vertexes, MaterialRegestry.get_material_data(tile.material).color)
 		draw_polyline(vertexes, Color.BEIGE, 1.0)

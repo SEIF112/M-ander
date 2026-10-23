@@ -1,4 +1,6 @@
+res://scenes/simulation/main/simulation_main.gd
+res://scenes/simulation/map/hex_map.gd
+res://scenes/simulation/main/simulation_main.tscn
+res://scripts/simulation/map_generator.gd
+res://tests/unit/map_generator/test_generate_baselayer.gd
 res://tests/runner/runner.tscn
-res://tests/unit/registry/test_scene_registry.gd
-res://old_tests/registrys/test_material_registry.gd
-res://tests/unit/registry/test_material_registry.gd

@@ -5,9 +5,9 @@ signal map_changed
 
 @export var width: int = 10
 @export var height: int = 10
-@export var seed: float
+@export var seed: int
 
-var tiles: Dictionary = {}
+var tiles: Dictionary[Vector2i, Tile] = {}
 
 const AXIAL_DIRECTIONS: Array[Vector2i] = [
 	Vector2i(1, 0),
