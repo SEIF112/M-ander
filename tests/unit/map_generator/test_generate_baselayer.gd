@@ -100,7 +100,7 @@ func test_correct_tile_count():
 
 
 # -------------------------------------------------------------------
-# 5) Alle Tiles haben das Basismaterial
+# 5) Basisschicht: Alle Tiles haben das Basismaterial
 # -------------------------------------------------------------------
 func test_all_tiles_have_base_material():
 	var materials := [
@@ -113,24 +113,24 @@ func test_all_tiles_have_base_material():
 	var errors := []
 
 	for mat in materials:
-		var gen_settings := MapGenerationSettings.new()
-		gen_settings.width = 5
-		gen_settings.height = 5
-		gen_settings.base_material = mat
-		gen_settings.seed_value = 999
+		# MapData vorbereiten
+		var map := MapData.new()
+		map.generate_empty(5, 5)
 
-		var sim_settings := SimulationSettings.new()
-		var map := MapGenerator.generate(gen_settings, sim_settings)
+		# Basisschicht direkt testen
+		MapGenerator._generate_base_layer(map, mat)
 
+		# Prüfen, ob ALLE Tiles korrekt gesetzt wurden
 		for key in map.tiles:
 			if map.tiles[key].material != mat:
-				errors.append("Material mismatch for %s at %s" % [str(mat), str(key)])
+				errors.append("Tile %s was not set to %s" % [str(key), str(mat)])
 
 	assert_equal(
 		errors.size(),
 		0,
-        "Base material applied for all materials"
+        "Base layer sets all tiles to the base material"
 	)
+
 
 
 # -------------------------------------------------------------------

@@ -1,6 +1,3 @@
-res://scenes/simulation/main/simulation_main.gd
-res://scenes/simulation/map/hex_map.gd
-res://scenes/simulation/main/simulation_main.tscn
 res://scripts/simulation/map_generator.gd
-res://tests/unit/map_generator/test_generate_baselayer.gd
 res://tests/runner/runner.tscn
+res://scenes/simulation/map/hex_map.gd
