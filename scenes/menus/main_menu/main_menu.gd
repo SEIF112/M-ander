@@ -15,3 +15,7 @@ func _on_new_simulation_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	ScreenManager.switch_to(SceneRegistry.SceneKey.OPTIONS_MENU)
+
+
+func _on_presets_pressed() -> void:
+	ScreenManager.switch_to(SceneRegistry.SceneKey.PRESET_MENU)

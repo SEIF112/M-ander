@@ -57,3 +57,16 @@ func _on_min_spinbox_changed(value):
 func _on_max_spinbox_changed(value):
 	max_output = value
 	slider.range_end = value
+
+func set_range(new_min: float, new_max: float) -> void:
+	min_output = new_min
+	max_output = new_max
+	min_value_spinbox.value = new_min
+	max_value_spinbox.value = new_max
+	# Reihenfolge, damit der Doppel-Slider die Griffe nicht gegeneinander klemmt
+	if new_min > slider.range_end:
+		slider.range_end = new_max
+		slider.range_begin = new_min
+	else:
+		slider.range_begin = new_min
+		slider.range_end = new_max

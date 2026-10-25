@@ -5,3 +5,16 @@ res://scenes/menus/options/options_menu.tscn
 res://scenes/menus/options/options_menu.gd
 res://scenes/simulation/map/hex_map.gd
 res://scenes/simulation/main/simulation_main.gd
+res://scripts/settings/simulation_settings.gd
+res://scripts/manager/simulation_manager.gd
+res://scenes/components/single_output.tscn
+res://scenes/components/range_value_output.tscn
+res://scenes/components/range_value_output.gd
+res://scenes/menus/parameter_input/parameter_input.gd
+res://scripts/data/map_preset.gd
+res://scripts/store/preset_store.gd
+res://scenes/menus/preset/preset_menu.tscn
+res://scenes/menus/preset/preset_menu.gd
+res://core/scene_registry.gd
+res://scenes/menus/main_menu/main_menu.gd
+res://scenes/menus/main_menu/main_menu.tscn

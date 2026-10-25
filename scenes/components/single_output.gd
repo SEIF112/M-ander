@@ -37,3 +37,8 @@ func _on_slider_changed(value):
 func _on_spinbox_changed(value):
 	current_value = value
 	slider.value = current_value
+	
+func set_value(value: float) -> void:
+	current_value = value
+	slider.value = value
+	spinbox.value = value

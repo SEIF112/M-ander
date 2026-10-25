@@ -20,5 +20,10 @@ text = "Neue Simulation"
 layout_mode = 2
 text = "Optionen"
 
+[node name="Presets" type="Button" parent="VBoxContainer" unique_id=1145243693]
+layout_mode = 2
+text = "Presets"
+
 [connection signal="pressed" from="VBoxContainer/NewSimulation" to="." method="_on_new_simulation_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Presets" to="." method="_on_presets_pressed"]

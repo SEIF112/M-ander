@@ -2,7 +2,14 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	var s := SimulationManager.simulation_settings
+	$UserInputs/RiverSpeed.set_value(s.river_speed)
+	$UserInputs/WaterAmountPerTile.set_value(s.water_amount)
+	$UserInputs/GroundwaterTable.set_value(s.groundwater_table)
+	$UserInputs/SedimentVolume.set_value(s.sediment_amount)
+	$UserInputs/TemperatureRange.set_range(s.min_temperature, s.max_temperature)
+	$UserInputs/SoilHardness.set_range(s.min_soil_hardness, s.max_soil_hardness)
+	$UserInputs/Vegetation.set_range(s.min_vegetation, s.max_vegetation)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bskemfgnebisv"]
+
+[ext_resource type="Script" uid="uid://byniup3t1mnih" path="res://scenes/menus/preset/preset_menu.gd" id="1_kkgas"]
+
+[node name="PresetMenu" type="Control" unique_id=858111054]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kkgas")
