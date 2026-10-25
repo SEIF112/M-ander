@@ -10,15 +10,18 @@ extends VBoxContainer
 @onready var slider := $Slider
 @onready var spinbox := $InputField/ValueBox
 @onready var label := $InputField/Label
+@export var step: float = 0.01
 
 func _ready() -> void:
 	slider.min_value = min_value
 	slider.max_value = max_value
 	slider.value = current_value
+	slider.step = step
 	
 	spinbox.min_value = min_value
 	spinbox.max_value = max_value
 	spinbox.value = current_value
+	spinbox.step = step
 	
 	label.text = label_text
 	

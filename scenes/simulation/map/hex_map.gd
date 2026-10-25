@@ -32,3 +32,17 @@ func _draw() -> void:
 		var vertexes := HexMath.hex_corners(center, hex_size)
 		draw_colored_polygon(vertexes, _tile_color(tile))
 		draw_polyline(vertexes, Color.BEIGE, 1.0)
+
+func fit_to_rect(area: Rect2) -> void:
+	if _map_data == null or _map_data.tiles.is_empty():
+		return
+	var bounds := Rect2()
+	var first := true
+	for tile: Tile in _map_data.tiles.values():
+		var c := HexMath.hex_to_pixel(tile.axial_q, tile.axial_r, 1.0)
+		var tile_rect := Rect2(c - Vector2(sqrt(3.0) / 2.0, 1.0), Vector2(sqrt(3.0), 2.0))
+		bounds = tile_rect if first else bounds.merge(tile_rect)
+		first = false
+	hex_size = minf(area.size.x / bounds.size.x, area.size.y / bounds.size.y)
+	position = area.position - bounds.position * hex_size
+	queue_redraw()

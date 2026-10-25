@@ -1,6 +1,7 @@
-res://scripts/simulation/map_generator.gd
 res://tests/runner/runner.tscn
+res://scripts/manager/map_manager.gd
+res://scenes/components/single_output.gd
+res://scenes/menus/options/options_menu.tscn
+res://scenes/menus/options/options_menu.gd
 res://scenes/simulation/map/hex_map.gd
-res://tests/unit/helper/test_cordinate_consistency.gd
-res://scripts/data/map_data.gd
-res://scripts/settings/map_generation_settings.gd
+res://scenes/simulation/main/simulation_main.gd
