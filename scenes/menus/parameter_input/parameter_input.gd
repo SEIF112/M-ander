@@ -33,7 +33,7 @@ func get_parameters() -> Dictionary:
 
 func _on_start_simulation_pressed() -> void:
 	var values := get_parameters()
-	var simulation_settings := SimulationSettings.new()
+	var simulation_settings = SimulationManager.simulation_settings
 	
 	simulation_settings.river_speed = values["river_speed"]
 	simulation_settings.water_amount = values["water_amount"]

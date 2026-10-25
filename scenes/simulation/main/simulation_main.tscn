@@ -4,3 +4,13 @@
 
 [node name="SimulationMain" type="Node2D" unique_id=1795988379]
 script = ExtResource("1_0feef")
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=434098787]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainMenu" type="Button" parent="Buttons" unique_id=812106423]
+layout_mode = 2
+text = "Hauptmenü"
+
+[connection signal="pressed" from="Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
