@@ -1,2 +1,3 @@
 res://scenes/menus/options/options_menu.tscn
-res://.gitignore.txt
+res://scripts/simulation/river_geometry.gd
+res://scripts/settings/simulation_tuning.gd
