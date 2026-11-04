@@ -1,7 +1,7 @@
 class_name MapGenerator
 extends RefCounted
 
-static func generate(gen_settings: MapGenerationSettings, sim_settings: SimulationSettings) -> MapData:
+static func generate(gen_settings: MapGenerationSettings, sim_settings: SimulationSettings, tuning: SimulationTuning) -> MapData:
 	var map := MapData.new()
 	map.seed = gen_settings.seed_value if gen_settings.seed_value != 0 else randi()
 	map.generate_empty(gen_settings.width, gen_settings.height)
@@ -9,7 +9,8 @@ static func generate(gen_settings: MapGenerationSettings, sim_settings: Simulati
 	_generate_base_layer(map, gen_settings.base_material)
 	_generate_clusters(map, gen_settings)
 	_roll_all_resistance(map, sim_settings)
-	_carve_river(map, gen_settings)
+	_generate_vegetation(map, sim_settings, tuning)
+	_carve_river(map, gen_settings, tuning)
 	return map
 
 
@@ -119,23 +120,21 @@ static func roll_hardness(material: MaterialData, user_min: float, user_max: flo
 
 #---------- Stufe 4: Vegetation festlegen -----------
 
-static func _init_state(map_data: MapData, sim_settings: SimulationSettings, tuning: SimulationTuning) -> void:
+static func _generate_vegetation(map_data: MapData, sim_settings: SimulationSettings,
+		tuning: SimulationTuning) -> void:
 	var rng := _make_rng(map_data.seed, "vegetation")
+	var gw := ClimateModel.groundwater_norm(sim_settings.groundwater_table, tuning.groundwater_range)
+	var gw_factor := lerpf(tuning.groundwater_vegetation_min, 1.0, gw)
 	for tile: Tile in map_data.tiles.values():
 		var mat := MaterialRegestry.get_material_data(tile.material)
-		tile.max_vegetation_potential = mat.vegetation_potential
-		if tile.water_state == Enums.WaterState.NONE:
-			tile.bank_balance = -1.0
-			var start := rng.randf_range(sim_settings.min_vegetation, sim_settings.max_vegetation) / 100.0
-			tile.vegetation_density = start * tile.max_vegetation_potential
-		else:
-			tile.bank_balance = tuning.river_depth
-			tile.vegetation_density = 0.0
+		tile.max_vegetation_potential = mat.vegetation_potential * gw_factor
+		var start := rng.randf_range(sim_settings.min_vegetation, sim_settings.max_vegetation) / 100.0
+		tile.vegetation_density = start * tile.max_vegetation_potential
 
 
 # ---------- Stufe 5: Fluss einschneiden ----------
 
-static func _carve_river(map_data: MapData, gen_settings: MapGenerationSettings) -> void:
+static func _carve_river(map_data: MapData, gen_settings: MapGenerationSettings, tuning: SimulationTuning) -> void:
 	var rng := _make_rng(map_data.seed, "river")
 	var phase := rng.randf_range(0.0, TAU)
 
@@ -172,14 +171,14 @@ static func _carve_river(map_data: MapData, gen_settings: MapGenerationSettings)
 	# 2. Aufeinanderfolgende Zeilenpunkte per Hex-Linie verbinden -> lückenlos von oben nach unten
 	for row in range(last_row + 1):
 		var a: Tile = best_tiles[row]
-		a.water_state = Enums.WaterState.RIVER_ACTIVE
+		_make_water(a, tuning)
 		if row == last_row:
 			break
 		var b: Tile = best_tiles[row + 1]
 		for pos in _hex_line(Vector2i(a.axial_q, a.axial_r), Vector2i(b.axial_q, b.axial_r)):
 			var t := map_data.get_tile(pos.x, pos.y)
 			if t != null:
-				t.water_state = Enums.WaterState.RIVER_ACTIVE
+				_make_water(t, tuning)
 
 
 static func _tile_x(tile: Tile) -> float:
@@ -216,3 +215,8 @@ static func _axial_round(q: float, r: float) -> Vector2i:
 	elif dr > ds:
 		rr = -rq - rs
 	return Vector2i(int(rq), int(rr))
+	
+static func _make_water(tile: Tile, tuning: SimulationTuning) -> void:
+	tile.water_state = Enums.WaterState.RIVER_ACTIVE
+	tile.bank_balance = tuning.river_depth
+	tile.vegetation_density = 0.0

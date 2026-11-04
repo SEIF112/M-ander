@@ -4,8 +4,8 @@ var gen_settings := MapGenerationSettings.new()
 var current_map: MapData
 
 
-func create_map(sim_settings: SimulationSettings) -> MapData:
-	current_map = MapGenerator.generate(gen_settings, sim_settings)
+func create_map(sim_settings: SimulationSettings, tuning: SimulationTuning) -> MapData:
+	current_map = MapGenerator.generate(gen_settings, sim_settings, tuning)
 	return current_map
 
 

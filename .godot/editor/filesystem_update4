@@ -1,9 +1,2 @@
-res://scripts/data/tile.gd
 res://scenes/menus/options/options_menu.tscn
-res://scripts/data/material_data.gd
-res://resources/materials/sand.tres
-res://resources/materials/gravel.tres
-res://resources/materials/earth.tres
-res://resources/materials/stone.tres
-res://scripts/settings/simulation_tuning.gd
-res://scripts/simulation/map_generator.gd
+res://.gitignore.txt

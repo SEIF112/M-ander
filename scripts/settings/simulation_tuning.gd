@@ -17,6 +17,8 @@ extends Resource
 @export_group("Klima")
 @export var groundwater_range := Vector2(-100.0, 0.0)  # an den Slider im Formular anpassen
 @export var groundwater_softening: float = 0.3
+@export var groundwater_vegetation_min: float = 0.5   # Potenzial bei trockenstem Grundwasser
+@export var vegetation_response: float = 0.05         # Anteil pro Tick, mit dem die Vegetation ihr Ziel erreicht
 
 @export_group("Überflutung")
 @export var flood_water_factor: float = 3.0

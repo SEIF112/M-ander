@@ -3,7 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var map := MapManager.create_map(SimulationManager.simulation_settings)
+	var map := MapManager.create_map(SimulationManager.simulation_settings, SimulationManager.simulation_tuning)
 	var hex_map := SceneRegistry.get_scene(SceneRegistry.SceneKey.HEX_MAP).instantiate()
 	add_child(hex_map)
 	hex_map.render_map(map)

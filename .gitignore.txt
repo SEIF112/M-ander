@@ -10,7 +10,8 @@
 export.cfg
 export_credentials.cfg
 *.tmp
- .godot/editor/*
+ *editor/
+
 
 # Imported translations (automatically generated from CSV files)
 *.translation
