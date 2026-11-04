@@ -7,4 +7,7 @@ script = ExtResource("1_y80ns")
 display_name = "Sand"
 hardness_max = 20.0
 color = Color(0.98880583, 0.9888055, 9.241105e-06, 1)
+vegetation_effect = 0.3
+vegetation_potential = 0.5
+freeze_factor = 1.2
 metadata/_custom_type_script = "uid://crcmggjij8kfv"

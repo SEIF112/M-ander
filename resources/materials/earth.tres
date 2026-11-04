@@ -9,4 +9,7 @@ display_name = "Erde"
 hardness_min = 20.0
 hardness_max = 40.0
 color = Color(0.56594956, 0.38090286, 2.8878452e-07, 1)
+vegetation_effect = 0.5
+vegetation_potential = 1.0
+freeze_factor = 1.5
 metadata/_custom_type_script = "uid://crcmggjij8kfv"

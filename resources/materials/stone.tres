@@ -9,4 +9,7 @@ display_name = "Stein"
 hardness_min = 80.0
 hardness_max = 100.0
 color = Color(0.19315353, 0.19315353, 0.19315353, 1)
+vegetation_effect = -0.3
+vegetation_potential = 0.2
+freeze_factor = 0.9
 metadata/_custom_type_script = "uid://crcmggjij8kfv"

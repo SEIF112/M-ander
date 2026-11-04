@@ -117,8 +117,23 @@ static func roll_hardness(material: MaterialData, user_min: float, user_max: flo
 	var percent := rng.randf_range(user_min, user_max) / 100.0
 	return round(material.hardness_min + span * percent)
 
+#---------- Stufe 4: Vegetation festlegen -----------
 
-# ---------- Stufe 4: Fluss einschneiden ----------
+static func _init_state(map_data: MapData, sim_settings: SimulationSettings, tuning: SimulationTuning) -> void:
+	var rng := _make_rng(map_data.seed, "vegetation")
+	for tile: Tile in map_data.tiles.values():
+		var mat := MaterialRegestry.get_material_data(tile.material)
+		tile.max_vegetation_potential = mat.vegetation_potential
+		if tile.water_state == Enums.WaterState.NONE:
+			tile.bank_balance = -1.0
+			var start := rng.randf_range(sim_settings.min_vegetation, sim_settings.max_vegetation) / 100.0
+			tile.vegetation_density = start * tile.max_vegetation_potential
+		else:
+			tile.bank_balance = tuning.river_depth
+			tile.vegetation_density = 0.0
+
+
+# ---------- Stufe 5: Fluss einschneiden ----------
 
 static func _carve_river(map_data: MapData, gen_settings: MapGenerationSettings) -> void:
 	var rng := _make_rng(map_data.seed, "river")

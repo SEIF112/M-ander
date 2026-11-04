@@ -9,4 +9,6 @@ display_name = "Kies"
 hardness_min = 50.0
 hardness_max = 70.0
 color = Color(0.47137535, 0.4713753, 0.4713753, 1)
+vegetation_effect = 0.1
+vegetation_potential = 0.3
 metadata/_custom_type_script = "uid://crcmggjij8kfv"

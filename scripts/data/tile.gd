@@ -12,12 +12,11 @@ extends Resource
 @export var material: Enums.TileMaterial = Enums.TileMaterial.EARTH
 @export var water_state: Enums.WaterState = Enums.WaterState.NONE
 
-## Nur bedeutungsvoll, wenn water_state ein Wasserzustand ist
-## (RIVER_ACTIVE, RIVER_DEAD, LAKE, FLOOD). Beschreibt, wie viel Sediment
-## das Wasser an dieser Stelle gerade mit sich trägt - steigt dieser Wert
-## zu hoch, versandet das Tile und wird zu Land (Zustandsübergang in
-## MapChanger.check_state_transitions).
-@export var sediment_amount: float = 0.0
+## Kontinuierlicher Zustand zwischen Land und Wasser.
+## < 0: Land (-1.0 = unberührt, nahe 0 = stark angegriffen)
+## >= 0: Wasser (je höher, desto stabiler)
+## Nach einem Wechsel zurücksetzen: Land -> Wasser = +river_depth, Wasser -> Land = -1.0
+@export var bank_balance: float = -1.0
 
 ## Nur bedeutungsvoll, wenn water_state == NONE (also Boden).
 ## Wird von MapChanger pro Schritt aus material.hardness,
@@ -37,7 +36,7 @@ extends Resource
 # Projektziel "Landnutzung in Flussnähe".
 # Umsetzung: neues Feld @export var groundwater_level: float hier ergänzen,
 # initial aus settings.groundwater_table befüllen (MapData.generate_empty),
-# danach lokal durch MapChanger anpassbar (z.B. Nachbarschafts-Distanz zum Fluss).
+# danach lokal durch Mapgenerator anpassbar (z.B. Nachbarschafts-Distanz zum Fluss).
 
 # Temperatur bewusst NICHT hier - ist ein globaler Wert, siehe
 # SimulationSettings.min_temperature/max_temperature.
