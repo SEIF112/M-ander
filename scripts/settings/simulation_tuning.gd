@@ -10,9 +10,9 @@ extends Resource
 @export var river_depth: float = 1.0        # bank_balance eines frischen Wassertiles
 @export var k_ref: float = 0.3            # Krümmung in Tile-Breiten, ab der der Effekt voll wirkt
 @export var jitter: float = 0.2             # Streuung der Erosion (±)
-@export var erosion_scale: float = 400.0
-@export var deposition_rate: float = 0.002
-@export var dead_silt_rate: float = 0.01    # Verlandung pro Tick bei RIVER_DEAD
+@export var erosion_scale: float = 5000.0
+@export var deposition_rate: float = 0.0002
+@export var dead_silt_rate: float = 0.005    # Verlandung pro Tick bei RIVER_DEAD
 @export var curvature_span: int = 2
 
 @export_group("Klima")

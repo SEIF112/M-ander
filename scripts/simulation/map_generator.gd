@@ -171,14 +171,14 @@ static func _carve_river(map_data: MapData, gen_settings: MapGenerationSettings,
 	# 2. Aufeinanderfolgende Zeilenpunkte per Hex-Linie verbinden -> lückenlos von oben nach unten
 	for row in range(last_row + 1):
 		var a: Tile = best_tiles[row]
-		_make_water(a, tuning)
+		ErosionModel.make_water(a, tuning)
 		if row == last_row:
 			break
 		var b: Tile = best_tiles[row + 1]
 		for pos in _hex_line(Vector2i(a.axial_q, a.axial_r), Vector2i(b.axial_q, b.axial_r)):
 			var t := map_data.get_tile(pos.x, pos.y)
 			if t != null:
-				_make_water(t, tuning)
+				ErosionModel.make_water(t, tuning)
 
 
 static func _tile_x(tile: Tile) -> float:
@@ -216,7 +216,3 @@ static func _axial_round(q: float, r: float) -> Vector2i:
 		rr = -rq - rs
 	return Vector2i(int(rq), int(rr))
 	
-static func _make_water(tile: Tile, tuning: SimulationTuning) -> void:
-	tile.water_state = Enums.WaterState.RIVER_ACTIVE
-	tile.bank_balance = tuning.river_depth
-	tile.vegetation_density = 0.0

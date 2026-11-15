@@ -1,2 +1,4 @@
 res://scenes/menus/options/options_menu.tscn
 res://scripts/simulation/erosion_model.gd
+res://scripts/settings/simulation_tuning.gd
+res://scripts/simulation/map_generator.gd
