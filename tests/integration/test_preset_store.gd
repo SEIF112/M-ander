@@ -12,6 +12,14 @@ func run() -> void:
 
 
 # ---------------------------------------------------------
+# Helper
+# ---------------------------------------------------------
+
+func _create_tuning() -> SimulationTuning:
+	return SimulationTuning.new()
+
+
+# ---------------------------------------------------------
 # 1) Preset speichern, laden und wiederverwenden
 # ---------------------------------------------------------
 
@@ -71,10 +79,18 @@ func test_preset_roundtrip() -> void:
 		"Generator version is stored"
 	)
 
-	var original := MapGenerator.generate(gen, sim)
+	var tuning := _create_tuning()
+
+	var original := MapGenerator.generate(
+		gen,
+		sim,
+		tuning
+	)
+
 	var restored := MapGenerator.generate(
 		loaded.gen_settings,
-		loaded.sim_settings
+		loaded.sim_settings,
+		tuning
 	)
 
 	var identical := true
@@ -96,6 +112,14 @@ func test_preset_roundtrip() -> void:
 			break
 
 		if a.resistance != b.resistance:
+			identical = false
+			break
+
+		if a.vegetation_density != b.vegetation_density:
+			identical = false
+			break
+
+		if a.max_vegetation_potential != b.max_vegetation_potential:
 			identical = false
 			break
 

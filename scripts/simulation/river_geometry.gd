@@ -83,3 +83,35 @@ class RiverShape:
 		if is_nan(c):
 			return 0
 		return -1 if RiverGeometry.tile_x(tile) < c else 1
+
+## Anzahl aktiver Wassertiles pro Zeile
+static func row_counts(map_data: MapData) -> PackedInt32Array:
+	var rows := 0
+	for key: Vector2i in map_data.tiles:
+		rows = maxi(rows, key.y + 1)
+	var counts := PackedInt32Array()
+	counts.resize(rows)
+	for tile: Tile in map_data.tiles.values():
+		if tile.water_state == Enums.WaterState.RIVER_ACTIVE:
+			counts[tile.axial_r] += 1
+	return counts
+
+
+## Darf dieses Wassertile zu Land werden, ohne den Fluss zu zerreißen?
+static func can_silt(map_data: MapData, tile: Tile, counts: PackedInt32Array) -> bool:
+	# Regel 1: nie das letzte Wassertile einer Zeile entfernen
+	if tile.axial_r >= 0 and tile.axial_r < counts.size() and counts[tile.axial_r] <= 1:
+		return false
+	# Regel 2: Wasser-Nachbarn im Ring müssen einen zusammenhängenden Bogen bilden
+	var ring: Array[bool] = []
+	for direction in MapData.AXIAL_DIRECTIONS:
+		var n := map_data.get_tile(tile.axial_q + direction.x, tile.axial_r + direction.y)
+		ring.append(n != null and n.water_state == Enums.WaterState.RIVER_ACTIVE)
+	var water_count := 0
+	var arcs := 0
+	for i in 6:
+		if ring[i]:
+			water_count += 1
+			if not ring[(i + 5) % 6]:
+				arcs += 1
+	return water_count == 0 or water_count == 6 or arcs == 1

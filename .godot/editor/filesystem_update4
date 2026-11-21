@@ -1,4 +1,10 @@
 res://scenes/menus/options/options_menu.tscn
+res://scripts/simulation/river_geometry.gd
+res://scripts/simulation/map_changer.gd
+res://tests/unit/map_generator/test_carve_river.gd
+res://tests/runner/runner.tscn
+res://tests/integration/test_map_generation_pipeline.gd
+res://tests/integration/test_preset_store.gd
+res://tests/unit/map_generator/test_generate_baselayer.gd
+res://tests/unit/sumulation/test_map_changer.gd
 res://scripts/simulation/erosion_model.gd
-res://scripts/settings/simulation_tuning.gd
-res://scripts/simulation/map_generator.gd

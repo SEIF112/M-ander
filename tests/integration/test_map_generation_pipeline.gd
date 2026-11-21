@@ -8,6 +8,7 @@ func run():
 	test_generate_creates_correct_tile_count()
 	test_generate_applies_clusters()
 	test_generate_rolls_resistance()
+	test_generate_generates_vegetation()
 	test_generate_creates_river()
 	test_same_seed_creates_identical_map()
 	test_different_seeds_create_different_maps()
@@ -45,6 +46,10 @@ func _create_simulation_settings() -> SimulationSettings:
 	return settings
 
 
+func _create_tuning() -> SimulationTuning:
+	return SimulationTuning.new()
+
+
 func _map_snapshot(map: MapData) -> Dictionary:
 	var snapshot := {}
 
@@ -54,7 +59,9 @@ func _map_snapshot(map: MapData) -> Dictionary:
 		snapshot[key] = {
 			"material": tile.material,
 			"water_state": tile.water_state,
-			"resistance": tile.resistance
+			"resistance": tile.resistance,
+			"vegetation_density": tile.vegetation_density,
+			"max_vegetation_potential": tile.max_vegetation_potential
 		}
 
 	return snapshot
@@ -67,7 +74,8 @@ func _map_snapshot(map: MapData) -> Dictionary:
 func test_generate_creates_correct_tile_count():
 	var map := MapGenerator.generate(
 		_create_generation_settings(12345),
-		_create_simulation_settings()
+		_create_simulation_settings(),
+		_create_tuning()
 	)
 
 	assert_equal(
@@ -84,7 +92,8 @@ func test_generate_creates_correct_tile_count():
 func test_generate_applies_clusters():
 	var map := MapGenerator.generate(
 		_create_generation_settings(12345),
-		_create_simulation_settings()
+		_create_simulation_settings(),
+		_create_tuning()
 	)
 
 	var non_base_tiles := 0
@@ -107,7 +116,8 @@ func test_generate_applies_clusters():
 func test_generate_rolls_resistance():
 	var map := MapGenerator.generate(
 		_create_generation_settings(12345),
-		_create_simulation_settings()
+		_create_simulation_settings(),
+		_create_tuning()
 	)
 
 	var resistance_found := false
@@ -125,41 +135,69 @@ func test_generate_rolls_resistance():
 
 
 # ---------------------------------------------------------
-# 4) Fluss wird erzeugt
+# 4) Vegetation wird erzeugt
+# ---------------------------------------------------------
+
+func test_generate_generates_vegetation():
+	var map := MapGenerator.generate(
+		_create_generation_settings(12345),
+		_create_simulation_settings(),
+		_create_tuning()
+	)
+
+	var vegetation_found := false
+
+	for tile: Tile in map.tiles.values():
+		if tile.max_vegetation_potential > 0:
+			vegetation_found = true
+			break
+
+	assert_equal(
+		vegetation_found,
+		true,
+		"Pipeline generates vegetation data"
+	)
+
+
+# ---------------------------------------------------------
+# 5) Fluss wird erzeugt
 # ---------------------------------------------------------
 
 func test_generate_creates_river():
 	var map := MapGenerator.generate(
 		_create_generation_settings(12345),
-		_create_simulation_settings()
+		_create_simulation_settings(),
+		_create_tuning()
 	)
 
-	var river_tiles := 0
+	var water_tiles := 0
 
 	for tile: Tile in map.tiles.values():
-		if tile.water_state == Enums.WaterState.RIVER_ACTIVE:
-			river_tiles += 1
+		if tile.water_state != Enums.WaterState.NONE:
+			water_tiles += 1
 
 	assert_equal(
-		river_tiles > 0,
+		water_tiles > 0,
 		true,
 		"Pipeline creates river tiles"
 	)
 
 
 # ---------------------------------------------------------
-# 5) Gleicher Seed -> identische Karte
+# 6) Gleicher Seed -> identische Karte
 # ---------------------------------------------------------
 
 func test_same_seed_creates_identical_map():
 	var map_a := MapGenerator.generate(
 		_create_generation_settings(12345),
-		_create_simulation_settings()
+		_create_simulation_settings(),
+		_create_tuning()
 	)
 
 	var map_b := MapGenerator.generate(
 		_create_generation_settings(12345),
-		_create_simulation_settings()
+		_create_simulation_settings(),
+		_create_tuning()
 	)
 
 	assert_equal(
@@ -170,18 +208,20 @@ func test_same_seed_creates_identical_map():
 
 
 # ---------------------------------------------------------
-# 6) Unterschiedliche Seeds -> andere Karte
+# 7) Unterschiedliche Seeds -> andere Karte
 # ---------------------------------------------------------
 
 func test_different_seeds_create_different_maps():
 	var map_a := MapGenerator.generate(
 		_create_generation_settings(12345),
-		_create_simulation_settings()
+		_create_simulation_settings(),
+		_create_tuning()
 	)
 
 	var map_b := MapGenerator.generate(
 		_create_generation_settings(54321),
-		_create_simulation_settings()
+		_create_simulation_settings(),
+		_create_tuning()
 	)
 
 	assert_not_equal(

@@ -5,14 +5,13 @@ func _init():
 	_name = "Carve River Tests"
 
 func run():
-	test_river_creates_active_tiles()
+	test_river_marks_tiles_as_water()
 	test_river_reaches_first_row()
 	test_river_reaches_last_row()
 	test_same_seed_same_river()
 	test_different_seeds_different_river()
 	test_river_connects_top_to_bottom()
 	test_materials_are_not_changed()
-	test_all_river_tiles_are_active()
 
 
 # ---------------------------------------------------------
@@ -39,6 +38,10 @@ func _create_settings() -> MapGenerationSettings:
 	return settings
 
 
+func _create_tuning() -> SimulationTuning:
+	return SimulationTuning.new()
+
+
 func _river_snapshot(map: MapData) -> Dictionary:
 	var snapshot := {}
 
@@ -49,25 +52,26 @@ func _river_snapshot(map: MapData) -> Dictionary:
 
 
 # ---------------------------------------------------------
-# 1) Fluss erzeugt River-Tiles
+# 1) Fluss markiert Tiles als Wasser
 # ---------------------------------------------------------
 
-func test_river_creates_active_tiles():
+func test_river_marks_tiles_as_water():
 	var map := _create_map()
 	var settings := _create_settings()
+	var tuning := _create_tuning()
 
-	MapGenerator._carve_river(map, settings)
+	MapGenerator._carve_river(map, settings, tuning)
 
-	var river_tiles := 0
+	var water_tiles := 0
 
 	for tile: Tile in map.tiles.values():
-		if tile.water_state == Enums.WaterState.RIVER_ACTIVE:
-			river_tiles += 1
+		if tile.water_state != Enums.WaterState.NONE:
+			water_tiles += 1
 
 	assert_equal(
-		river_tiles > 0,
+		water_tiles > 0,
 		true,
-		"River creates active water tiles"
+		"River marks tiles as water"
 	)
 
 
@@ -78,13 +82,14 @@ func test_river_creates_active_tiles():
 func test_river_reaches_first_row():
 	var map := _create_map()
 	var settings := _create_settings()
+	var tuning := _create_tuning()
 
-	MapGenerator._carve_river(map, settings)
+	MapGenerator._carve_river(map, settings, tuning)
 
 	var found := false
 
 	for tile: Tile in map.tiles.values():
-		if tile.axial_r == 0 and tile.water_state == Enums.WaterState.RIVER_ACTIVE:
+		if tile.axial_r == 0 and tile.water_state != Enums.WaterState.NONE:
 			found = true
 			break
 
@@ -102,8 +107,9 @@ func test_river_reaches_first_row():
 func test_river_reaches_last_row():
 	var map := _create_map()
 	var settings := _create_settings()
+	var tuning := _create_tuning()
 
-	MapGenerator._carve_river(map, settings)
+	MapGenerator._carve_river(map, settings, tuning)
 
 	var max_row := 0
 
@@ -113,7 +119,7 @@ func test_river_reaches_last_row():
 	var found := false
 
 	for tile: Tile in map.tiles.values():
-		if tile.axial_r == max_row and tile.water_state == Enums.WaterState.RIVER_ACTIVE:
+		if tile.axial_r == max_row and tile.water_state != Enums.WaterState.NONE:
 			found = true
 			break
 
@@ -133,9 +139,10 @@ func test_same_seed_same_river():
 	var map_b := _create_map(12345)
 
 	var settings := _create_settings()
+	var tuning := _create_tuning()
 
-	MapGenerator._carve_river(map_a, settings)
-	MapGenerator._carve_river(map_b, settings)
+	MapGenerator._carve_river(map_a, settings, tuning)
+	MapGenerator._carve_river(map_b, settings, tuning)
 
 	assert_equal(
 		_river_snapshot(map_a),
@@ -153,9 +160,10 @@ func test_different_seeds_different_river():
 	var map_b := _create_map(54321)
 
 	var settings := _create_settings()
+	var tuning := _create_tuning()
 
-	MapGenerator._carve_river(map_a, settings)
-	MapGenerator._carve_river(map_b, settings)
+	MapGenerator._carve_river(map_a, settings, tuning)
+	MapGenerator._carve_river(map_b, settings, tuning)
 
 	assert_not_equal(
 		_river_snapshot(map_a),
@@ -171,13 +179,14 @@ func test_different_seeds_different_river():
 func test_river_connects_top_to_bottom():
 	var map := _create_map()
 	var settings := _create_settings()
+	var tuning := _create_tuning()
 
-	MapGenerator._carve_river(map, settings)
+	MapGenerator._carve_river(map, settings, tuning)
 
 	var open: Array[Vector2i] = []
 
 	for tile: Tile in map.tiles.values():
-		if tile.axial_r == 0 and tile.water_state == Enums.WaterState.RIVER_ACTIVE:
+		if tile.axial_r == 0 and tile.water_state != Enums.WaterState.NONE:
 			open.append(Vector2i(tile.axial_q, tile.axial_r))
 
 	var visited := {}
@@ -197,7 +206,7 @@ func test_river_connects_top_to_bottom():
 			if neighbor == null:
 				continue
 
-			if neighbor.water_state == Enums.WaterState.RIVER_ACTIVE:
+			if neighbor.water_state != Enums.WaterState.NONE:
 				open.append(next)
 
 	var max_row := 0
@@ -226,13 +235,14 @@ func test_river_connects_top_to_bottom():
 func test_materials_are_not_changed():
 	var map := _create_map()
 	var settings := _create_settings()
+	var tuning := _create_tuning()
 
 	var before := {}
 
 	for key in map.tiles:
 		before[key] = map.tiles[key].material
 
-	MapGenerator._carve_river(map, settings)
+	MapGenerator._carve_river(map, settings, tuning)
 
 	var after := {}
 
@@ -243,32 +253,4 @@ func test_materials_are_not_changed():
 		before,
 		after,
 		"River does not change tile materials"
-	)
-
-
-# ---------------------------------------------------------
-# 8) Alle gesetzten Wasser-Tiles sind RIVER_ACTIVE
-# ---------------------------------------------------------
-
-func test_all_river_tiles_are_active():
-	var map := _create_map()
-	var settings := _create_settings()
-
-	MapGenerator._carve_river(map, settings)
-
-	var valid := true
-
-	for tile: Tile in map.tiles.values():
-		match tile.water_state:
-			Enums.WaterState.NONE:
-				pass
-			Enums.WaterState.RIVER_ACTIVE:
-				pass
-			_:
-				valid = false
-
-	assert_equal(
-		valid,
-		true,
-		"River stage only creates RIVER_ACTIVE tiles"
 	)

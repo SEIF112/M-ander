@@ -8,7 +8,7 @@ static func effective_resistance(tile: Tile, mat: MaterialData, temperature: flo
 	var vegetation := 1.0 + mat.vegetation_effect * tile.vegetation_density
 	var frost := mat.freeze_factor if temperature < 0.0 else 1.0
 	var groundwater := 1.0 - tuning.groundwater_softening * groundwater_norm
-	return maxf(tile.base_hardness * vegetation * frost * groundwater, 0.01)
+	return maxf(tile.resistance * vegetation * frost * groundwater, 0.01)
 
 
 ## Zufallsfaktor um 1.0 (z.B. 0.8 bis 1.2). Der Aufrufer reicht den Zufallsgenerator "simulation" durch.
