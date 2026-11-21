@@ -22,6 +22,7 @@ SimulationManager="*uid://tipa2283ss6w"
 SceneRegistry="*uid://bv12wpdp0e6gv"
 MaterialRegestry="*uid://b3f0ql3dt4m1f"
 MapManager="*uid://dplutiyn1g1w"
+Evaluation="*uid://ccgk2qphpqgai"
 
 [display]
 

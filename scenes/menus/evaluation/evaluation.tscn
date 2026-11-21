@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cf88sfpk0shjy"]
+
+[ext_resource type="Script" uid="uid://ccgk2qphpqgai" path="res://scenes/menus/evaluation/evaluation.gd" id="1_iglf0"]
+
+[node name="Evaluation" type="Control" unique_id=1902205592]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_iglf0")

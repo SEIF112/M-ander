@@ -5,12 +5,61 @@
 [node name="SimulationMain" type="Node2D" unique_id=1795988379]
 script = ExtResource("1_0feef")
 
-[node name="Buttons" type="VBoxContainer" parent="." unique_id=434098787]
-offset_right = 40.0
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1623351975]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD" unique_id=1840958656]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="HUD/HBoxContainer" unique_id=1273155713]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Controls" type="Panel" parent="HUD/HBoxContainer" unique_id=344585860]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Buttons" type="VBoxContainer" parent="HUD/HBoxContainer/Controls" unique_id=434098787]
+layout_mode = 0
+offset_right = 101.0
 offset_bottom = 40.0
 
-[node name="MainMenu" type="Button" parent="Buttons" unique_id=812106423]
+[node name="YearLabel" type="Label" parent="HUD/HBoxContainer/Controls/Buttons" unique_id=367350769]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PauseButton" type="Button" parent="HUD/HBoxContainer/Controls/Buttons" unique_id=2062050591]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="HUD/HBoxContainer/Controls/Buttons" unique_id=1568849883]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpeedSlider" type="HSlider" parent="HUD/HBoxContainer/Controls/Buttons" unique_id=495720823]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 16.0
+value = 1.0
+
+[node name="EvaluationButton" type="Button" parent="HUD/HBoxContainer/Controls/Buttons" unique_id=1980669481]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Auswertung Einsehen"
+
+[node name="EndButton" type="Button" parent="HUD/HBoxContainer/Controls/Buttons" unique_id=470624790]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Simmulation Beenden"
+
+[node name="MainMenuButton" type="Button" parent="HUD/HBoxContainer/Controls/Buttons" unique_id=812106423]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Hauptmenü"
 
-[connection signal="pressed" from="Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="HUD/HBoxContainer/Controls/Buttons/MainMenuButton" to="." method="_on_main_menu_pressed"]

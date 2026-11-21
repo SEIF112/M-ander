@@ -7,7 +7,8 @@ enum SceneKey {
 	SIMULATION_MAIN,
 	HEX_MAP,
 	MAIN_MENU,
-	PRESET_MENU
+	PRESET_MENU,
+	EVALUATION
 }
 
 var scenes : Dictionary = {
@@ -17,7 +18,8 @@ var scenes : Dictionary = {
 	SceneKey.SIMULATION_MAIN: "res://scenes/simulation/main/simulation_main.tscn",
 	SceneKey.HEX_MAP: "res://scenes/simulation/map/hex_map.tscn",
 	SceneKey.MAIN_MENU: "res://scenes/menus/main_menu/main_menu.tscn",
-	SceneKey.PRESET_MENU: "res://scenes/menus/preset/preset_menu.tscn"
+	SceneKey.PRESET_MENU: "res://scenes/menus/preset/preset_menu.tscn",
+	SceneKey.EVALUATION: "res://scenes/menus/evaluation/evaluation.tscn"
 }
 
 func get_scene(key: SceneKey) -> PackedScene:

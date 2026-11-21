@@ -8,3 +8,16 @@ res://tests/integration/test_preset_store.gd
 res://tests/unit/map_generator/test_generate_baselayer.gd
 res://tests/unit/sumulation/test_map_changer.gd
 res://scripts/simulation/erosion_model.gd
+res://scripts/simulation/tick_clock.gd
+res://scripts/manager/simulation_manager.gd
+res://scripts/manager/map_manager.gd
+res://scenes/simulation/main/simulation_main.gd
+res://scenes/simulation/main/simulation_main.tscn
+res://tests/unit/sumulation/test_tick_clock.gd
+res://core/scene_registry.gd
+res://scripts/manager/screen_manager.gd
+res://scripts/simulation/simulation_stats.gd
+res://tests/unit/sumulation/test_simulation_stats.gd
+res://scenes/menus/evaluation/evaluation.tscn
+res://scripts/ui/line_graph.gd
+res://scenes/menus/evaluation/evaluation.gd

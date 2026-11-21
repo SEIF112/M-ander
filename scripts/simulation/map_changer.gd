@@ -6,6 +6,7 @@ var sim: SimulationSettings   # dieselbe Instanz wie im SimulationManager, wird 
 var tuning: SimulationTuning
 var tick: int = 0
 var _rng: RandomNumberGenerator
+var stats: SimulationStats
 
 
 func _init(map_data: MapData, sim_settings: SimulationSettings, sim_tuning: SimulationTuning) -> void:
@@ -13,6 +14,7 @@ func _init(map_data: MapData, sim_settings: SimulationSettings, sim_tuning: Simu
 	sim = sim_settings
 	tuning = sim_tuning
 	_rng = MapGenerator._make_rng(map.seed, "simulation")
+	stats = SimulationStats.new(map)
 
 
 func step() -> void:
@@ -37,6 +39,7 @@ func step() -> void:
 
 	# 8.
 	tick += 1
+	stats.on_tick(tick)
 	map.map_changed.emit()
 
 
@@ -85,13 +88,14 @@ func _deposit(water: Array[Tile], shape: RiverGeometry.RiverShape) -> void:
 				best = maxf(best, RiverGeometry.deposition_weight(shape.side_of(n), shape.strength_at(n.axial_r)))
 		tile.bank_balance -= ErosionModel.deposition_loss(sim, tuning, best)
 
-
 func _apply_changes(banks: Array[Tile], water: Array[Tile]) -> void:
 	for tile in banks:
 		if ErosionModel.becomes_water(tile.bank_balance):
 			ErosionModel.make_water(tile, tuning)
-	var counts := RiverGeometry.row_counts(map)   # erst jetzt, damit neues Wasser mitzählt
+			stats.on_became_water(tile)
+	var counts := RiverGeometry.row_counts(map)
 	for tile in water:
 		if ErosionModel.becomes_land(tile.bank_balance) and RiverGeometry.can_silt(map, tile, counts):
 			ErosionModel.make_land(tile)
+			stats.on_became_land(tile)
 			counts[tile.axial_r] -= 1
